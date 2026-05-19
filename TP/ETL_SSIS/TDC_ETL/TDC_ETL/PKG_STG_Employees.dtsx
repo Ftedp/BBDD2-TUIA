@@ -11,8 +11,8 @@
   DTS:LocaleID="21514"
   DTS:ObjectName="PKG_STG_Employees"
   DTS:PackageType="5"
-  DTS:VersionBuild="16"
-  DTS:VersionGUID="{734EFC38-5CC6-4449-8AF1-DD3E9C1C060F}">
+  DTS:VersionBuild="18"
+  DTS:VersionGUID="{50B0F063-5020-46B4-9293-0E2F7CF0A64F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -25,7 +25,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.16.0;Data Source=C:\Users\Usuario\Desktop\Escritorio\Facultad\BDII\TP\Fuentes\Area Recursos Humanos\Employees.xlsx;Extended Properties=&quot;Excel 12.0 XML;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.16.0;Data Source=C:\Users\Usuario\Desktop\Escritorio\Facultad\BDII\TP\Fuentes\Area Recursos Humanos\Employees.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -37,7 +37,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.16.0;Data Source=C:\Users\Usuario\Desktop\Escritorio\Facultad\BDII\TP\Fuentes\Area Recursos Humanos\Employee.xlsx;Extended Properties=&quot;Excel 12.0 XML;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.16.0;Data Source=C:\Users\Usuario\Desktop\Escritorio\Facultad\BDII\TP\Fuentes\Area Recursos Humanos\Employee.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -152,6 +152,23 @@
   </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Tarea Ejecutar SQL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{CB6C2FB2-4A02-47E2-8FAB-013DBA1D7F15}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tarea Ejecutar SQL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E5B443AC-11E8-4B85-8EF4-67788B404504}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_EMPLOYEES" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Tarea Flujo de datos"
       DTS:CreationName="Microsoft.Pipeline"
@@ -411,147 +428,6 @@
               </outputs>
             </component>
             <component
-              refId="Package\Tarea Flujo de datos\Destino de archivo plano 1"
-              componentClassID="Microsoft.FlatFileDestination"
-              contactInfo="Destino de archivo plano;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
-              description="Destino de archivo plano"
-              localeId="21514"
-              name="Destino de archivo plano 1"
-              version="1">
-              <properties>
-                <property
-                  dataType="System.Boolean"
-                  description="Especifica si los datos sobrescriben el archivo de destino o se anexan al mismo."
-                  name="Overwrite">true</property>
-                <property
-                  dataType="System.Null"
-                  description="Especifica el texto para escribir en el archivo de destino antes de escribir ningún dato."
-                  expressionType="Notify"
-                  name="Header" />
-                <property
-                  dataType="System.Boolean"
-                  description="Cuando el calificador de texto está habilitado, especifica si este contendrá secuencias de escape o no en los datos escritos en el archivo de destino."
-                  name="EscapeQualifier">false</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Connections[FlatFileConnection]"
-                  connectionManagerID="Package.ConnectionManagers[FLAT_ERR_Employees]"
-                  connectionManagerRefId="Package.ConnectionManagers[FLAT_ERR_Employees]"
-                  name="FlatFileConnection" />
-              </connections>
-              <inputs>
-                <input
-                  refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano]"
-                  hasSideEffects="true"
-                  name="Entrada de destino de archivo plano">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].Columns[Copy of EMPLOYEE_ID]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Copy of EMPLOYEE_ID"
-                      externalMetadataColumnId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[EMPLOYEE_ID]"
-                      lineageId="Package\Tarea Flujo de datos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EMPLOYEE_ID]" />
-                    <inputColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].Columns[Copy of FULL_NAME]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="200"
-                      cachedName="Copy of FULL_NAME"
-                      externalMetadataColumnId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[FULL_NAME]"
-                      lineageId="Package\Tarea Flujo de datos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of FULL_NAME]" />
-                    <inputColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].Columns[Copy of CATEGORY]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
-                      cachedName="Copy of CATEGORY"
-                      externalMetadataColumnId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[CATEGORY]"
-                      lineageId="Package\Tarea Flujo de datos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of CATEGORY]" />
-                    <inputColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].Columns[Copy of EMPLOYMENT_DATE]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Copy of EMPLOYMENT_DATE"
-                      externalMetadataColumnId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[EMPLOYMENT_DATE]"
-                      lineageId="Package\Tarea Flujo de datos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EMPLOYMENT_DATE]" />
-                    <inputColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].Columns[Copy of BIRTH_DATE]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Copy of BIRTH_DATE"
-                      externalMetadataColumnId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[BIRTH_DATE]"
-                      lineageId="Package\Tarea Flujo de datos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of BIRTH_DATE]" />
-                    <inputColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].Columns[Copy of EDUCATION_LEVEL]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
-                      cachedName="Copy of EDUCATION_LEVEL"
-                      externalMetadataColumnId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[EDUCATION_LEVEL]"
-                      lineageId="Package\Tarea Flujo de datos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of EDUCATION_LEVEL]" />
-                    <inputColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].Columns[Copy of GENDER]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Copy of GENDER"
-                      externalMetadataColumnId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[GENDER]"
-                      lineageId="Package\Tarea Flujo de datos\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of GENDER]" />
-                  </inputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[EMPLOYEE_ID]"
-                      dataType="r8"
-                      name="EMPLOYEE_ID" />
-                    <externalMetadataColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[FULL_NAME]"
-                      dataType="wstr"
-                      length="255"
-                      name="FULL_NAME" />
-                    <externalMetadataColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[CATEGORY]"
-                      dataType="wstr"
-                      length="255"
-                      name="CATEGORY" />
-                    <externalMetadataColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[EMPLOYMENT_DATE]"
-                      dataType="wstr"
-                      length="255"
-                      name="EMPLOYMENT_DATE" />
-                    <externalMetadataColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[BIRTH_DATE]"
-                      dataType="wstr"
-                      length="255"
-                      name="BIRTH_DATE" />
-                    <externalMetadataColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[EDUCATION_LEVEL]"
-                      dataType="wstr"
-                      length="255"
-                      name="EDUCATION_LEVEL" />
-                    <externalMetadataColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[GENDER]"
-                      dataType="wstr"
-                      length="255"
-                      name="GENDER" />
-                    <externalMetadataColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[ErrorCode]"
-                      dataType="i4"
-                      name="ErrorCode" />
-                    <externalMetadataColumn
-                      refId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano].ExternalColumns[ErrorColumn]"
-                      dataType="i4"
-                      name="ErrorColumn" />
-                  </externalMetadataColumns>
-                </input>
-              </inputs>
-            </component>
-            <component
               refId="Package\Tarea Flujo de datos\Destino de OLE DB"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
@@ -619,7 +495,7 @@
                 <input
                   refId="Package\Tarea Flujo de datos\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
                   errorOrTruncationOperation="Insertar"
-                  errorRowDisposition="RedirectRow"
+                  errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="Entrada de destino de OLE DB">
                   <inputColumns>
@@ -984,11 +860,6 @@
               name="Salida de conversión de datos"
               startId="Package\Tarea Flujo de datos\Conversión de datos.Outputs[Salida de conversión de datos]" />
             <path
-              refId="Package\Tarea Flujo de datos.Paths[Salida de error de destino de OLE DB]"
-              endId="Package\Tarea Flujo de datos\Destino de archivo plano 1.Inputs[Entrada de destino de archivo plano]"
-              name="Salida de error de destino de OLE DB"
-              startId="Package\Tarea Flujo de datos\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB]" />
-            <path
               refId="Package\Tarea Flujo de datos.Paths[Salida de origen de Excel]"
               endId="Package\Tarea Flujo de datos\Conversión de datos.Inputs[Entrada de conversión de datos]"
               name="Salida de origen de Excel"
@@ -998,6 +869,16 @@
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{9FFC2A21-B070-48A5-A85A-96D45931BB82}"
+      DTS:From="Package\Tarea Ejecutar SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Tarea Flujo de datos" />
+  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
 <!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
@@ -1009,11 +890,37 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="169.6,41.6"
+          Id="Package\Tarea Ejecutar SQL"
+          TopLeft="149.285714603504,65.7647058247076" />
         <NodeLayout
           Size="175.2,41.6"
           Id="Package\Tarea Flujo de datos"
-          TopLeft="5.5,5.5" />
+          TopLeft="151.214286024473,149.264705756338" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="236.450000313989,107.364705824708">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.8999999316299"
+              Start="0,0"
+              End="0,34.3999999316299">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.3999999316299" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -1021,15 +928,19 @@
     design-time-name="Package\Tarea Flujo de datos">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="152,41.6"
-          Id="Package\Tarea Flujo de datos\Origen de Excel"
-          TopLeft="176.999997362494,54.9999991804361" />
+          Size="168,41.6"
+          Id="Package\Tarea Flujo de datos\Destino de OLE DB"
+          TopLeft="175.892857517287,211.249999814831" />
         <NodeLayout
           Size="174.4,41.6"
           Id="Package\Tarea Flujo de datos\Conversión de datos"
           TopLeft="166.071428924951,137.647058702876" />
+        <NodeLayout
+          Size="152,41.6"
+          Id="Package\Tarea Flujo de datos\Origen de Excel"
+          TopLeft="176.999997362494,54.9999991804361" />
         <EdgeLayout
           Id="Package\Tarea Flujo de datos.Paths[Salida de origen de Excel]"
           TopLeft="253.135713143723,96.5999991804361">
@@ -1052,14 +963,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="204,41.6"
-          Id="Package\Tarea Flujo de datos\Destino de archivo plano 1"
-          TopLeft="164.285714635435,311.617646785679" />
-        <NodeLayout
-          Size="168,41.6"
-          Id="Package\Tarea Flujo de datos\Destino de OLE DB"
-          TopLeft="175.892857517287,211.249999814831" />
         <EdgeLayout
           Id="Package\Tarea Flujo de datos.Paths[Salida de conversión de datos]"
           TopLeft="256.582143221119,179.247058702876">
@@ -1082,35 +985,11 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Tarea Flujo de datos.Paths[Salida de error de destino de OLE DB]"
-          TopLeft="263.089286076361,252.849999814831">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,58.7676469708475"
-              Start="0,0"
-              End="0,51.2676469708475">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,51.2676469708475" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-82.791484375,20.7593117666738,165.58296875,9.7490234375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Tarea Flujo de datos\Origen de Excel">
+    design-time-name="Package\Tarea Flujo de datos\Destino de OLE DB">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1123,7 +1002,7 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Tarea Flujo de datos\Destino de OLE DB">
+    design-time-name="Package\Tarea Flujo de datos\Origen de Excel">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

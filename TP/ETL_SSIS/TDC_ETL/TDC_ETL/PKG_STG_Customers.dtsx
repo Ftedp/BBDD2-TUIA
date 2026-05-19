@@ -1,0 +1,1106 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/19/2026 10:46:44 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="RAER19"
+  DTS:CreatorName="RAER19\Usuario"
+  DTS:DTSID="{FB0108F0-64F7-4A17-A974-88D379CD26D4}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="21514"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{3CEBD286-2F36-4E04-BF0E-E778DBF52B14}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[RAER19.STG_TDC]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A0ECB8DA-0A0E-4DE8-8D63-02D93690A620}"
+      DTS:ObjectName="RAER19.STG_TDC">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=RAER19;Initial Catalog=STG_TDC;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{A0ECB8DA-0A0E-4DE8-8D63-02D93690A620}RAER19.STG_TDC;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DF_CUSTOMER_R"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{0BB4746E-CD6F-48D7-91FD-CACF201AECF1}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DF_CUSTOMER_R"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DF_CUSTOMER_R\Columna derivada"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Columna derivada;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Crea nuevos valores de columna aplicando expresiones a las columnas de entrada de la transformación. Crea nuevas columnas o sobrescribe las columnas existentes. Por ejemplo, se concatenan los valores de las columnas 'nombre' y 'apellidos' para crear una columna 'nombre completo'."
+              name="Columna derivada"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DF_CUSTOMER_R\Columna derivada.Inputs[Entrada de columna derivada]"
+                  description="Entrada en la transformación Columna derivada"
+                  name="Entrada de columna derivada">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF_CUSTOMER_R\Columna derivada.Outputs[Salida de columna derivada]"
+                  description="Salida predeterminada de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  name="Salida de columna derivada"
+                  synchronousInputId="Package\DF_CUSTOMER_R\Columna derivada.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Columna derivada.Outputs[Salida de columna derivada].Columns[TIPO_CLIENTE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      length="1"
+                      lineageId="Package\DF_CUSTOMER_R\Columna derivada.Outputs[Salida de columna derivada].Columns[TIPO_CLIENTE]"
+                      name="TIPO_CLIENTE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">"R"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"R"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DF_CUSTOMER_R\Columna derivada.Outputs[Salida de error de columna derivada]"
+                  description="Salida de error de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de columna derivada"
+                  synchronousInputId="Package\DF_CUSTOMER_R\Columna derivada.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF_CUSTOMER_R\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF_CUSTOMER_R\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF_CUSTOMER_R\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversión de datos"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DF_CUSTOMER_R\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                  name="Entrada de conversión de datos">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[CUSTOMER_ID]"
+                      cachedDataType="ui2"
+                      cachedName="CUSTOMER_ID"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[CUSTOMER_ID]" />
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[FULL_NAME]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="FULL_NAME"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[FULL_NAME]" />
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[BIRTH_DATE]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="BIRTH_DATE"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[BIRTH_DATE]" />
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[CITY]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CITY"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[CITY]" />
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[STATE]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="STATE"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[STATE]" />
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[ZIPCODE]"
+                      cachedDataType="ui4"
+                      cachedName="ZIPCODE"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[ZIPCODE]" />
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[TIPO_CLIENTE]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="TIPO_CLIENTE"
+                      lineageId="Package\DF_CUSTOMER_R\Columna derivada.Outputs[Salida de columna derivada].Columns[TIPO_CLIENTE]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos]"
+                  exclusionGroup="1"
+                  name="Salida de conversión de datos"
+                  synchronousInputId="Package\DF_CUSTOMER_R\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of CUSTOMER_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of CUSTOMER_ID]"
+                      name="Copy of CUSTOMER_ID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[CUSTOMER_ID]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of FULL_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="200"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of FULL_NAME]"
+                      name="Copy of FULL_NAME"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[FULL_NAME]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of BIRTH_DATE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of BIRTH_DATE]"
+                      name="Copy of BIRTH_DATE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[BIRTH_DATE]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of CITY]"
+                      name="Copy of CITY"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[CITY]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of STATE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of STATE]"
+                      name="Copy of STATE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[STATE]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ZIPCODE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="20"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ZIPCODE]"
+                      name="Copy of ZIPCODE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[ZIPCODE]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of TIPO_CLIENTE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of TIPO_CLIENTE]"
+                      name="Copy of TIPO_CLIENTE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\DF_CUSTOMER_R\Columna derivada.Outputs[Salida de columna derivada].Columns[TIPO_CLIENTE]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de conversión de datos"
+                  synchronousInputId="Package\DF_CUSTOMER_R\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF_CUSTOMER_R\Destino de OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Destino de OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[STG_CUSTOMERS]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[RAER19.STG_TDC]"
+                  connectionManagerRefId="Package.ConnectionManagers[RAER19.STG_TDC]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of TIPO_CLIENTE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Copy of TIPO_CLIENTE"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[TIPO_CLIENTE]"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of TIPO_CLIENTE]" />
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of ZIPCODE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="Copy of ZIPCODE"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[ZIPCODE]"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of ZIPCODE]" />
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of STATE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="Copy of STATE"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[STATE]"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of STATE]" />
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of CITY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="Copy of CITY"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[CITY]"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of CITY]" />
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of BIRTH_DATE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Copy of BIRTH_DATE"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[BIRTH_DATE]"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of BIRTH_DATE]" />
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of FULL_NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="Copy of FULL_NAME"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FULL_NAME]"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of FULL_NAME]" />
+                    <inputColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of CUSTOMER_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Copy of CUSTOMER_ID"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[CUSTOMER_ID]"
+                      lineageId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of CUSTOMER_ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[CUSTOMER_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CUSTOMER_ID" />
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FULL_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="FULL_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[BIRTH_DATE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BIRTH_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="CITY" />
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[STATE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="STATE" />
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[ZIPCODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ZIPCODE" />
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[TIPO_CLIENTE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="TIPO_CLIENTE" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF_CUSTOMER_R\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF_CUSTOMER_R\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF_CUSTOMER_R\Origen XML"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Extrae datos de un archivo XML. Por ejemplo, se usa para extraer los datos de catálogo de un archivo XML que representa catálogos y elementos de catálogo. Antes de usar la tarea, se debe especificar el esquema y generar una salida para cada elemento XML.;Microsoft Corporation;Microsoft SQL Server; Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;2"
+              description="Extrae datos de un archivo XML. Por ejemplo, se usa para extraer los datos de catálogo de un archivo XML que representa catálogos y elementos de catálogo. Antes de usar la tarea, se debe especificar el esquema y generar una salida para cada elemento XML."
+              name="Origen XML"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.XmlSourceAdapter</property>
+                <property
+                  dataType="System.String"
+                  description="Datos XML que usa el adaptador de origen XML."
+                  expressionType="Notify"
+                  name="XMLData">C:\Users\Usuario\Desktop\Escritorio\Facultad\BDII\TP\Fuentes\Area Comercializacion\Customer_R.xml</property>
+                <property
+                  dataType="System.String"
+                  description="Variable que usa el adaptador de origen XML para especificar datos XML."
+                  name="XMLDataVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Define cómo obtiene el adaptador de origen XML los datos XML."
+                  name="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Definición de esquema XML que usa el adaptador de origen XML."
+                  expressionType="Notify"
+                  name="XMLSchemaDefinition">C:\Users\Usuario\Desktop\Escritorio\Facultad\BDII\TP\Fuentes\Area Comercializacion\Customer_R.xsd</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Identifica si se usará el esquema insertado."
+                  name="UseInlineSchema">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Define cómo se asignan los tipos de enteros XML."
+                  name="XMLIntegerMapping"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.XmlSourceAdapter+XMLIntegerMappingConverter">0</property>
+              </properties>
+              <outputs>
+                <output
+                  refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente]"
+                  name="cliente">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Identifica el conjunto de filas asociado a la salida."
+                      name="RowsetID">cliente</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[CUSTOMER_ID]"
+                      dataType="ui2"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].ExternalColumns[CUSTOMER_ID]"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[CUSTOMER_ID]"
+                      name="CUSTOMER_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[FULL_NAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].ExternalColumns[FULL_NAME]"
+                      length="255"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[FULL_NAME]"
+                      name="FULL_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[BIRTH_DATE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].ExternalColumns[BIRTH_DATE]"
+                      length="255"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[BIRTH_DATE]"
+                      name="BIRTH_DATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[CITY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].ExternalColumns[CITY]"
+                      length="255"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[CITY]"
+                      name="CITY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[STATE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].ExternalColumns[STATE]"
+                      length="255"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[STATE]"
+                      name="STATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[ZIPCODE]"
+                      dataType="ui4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].ExternalColumns[ZIPCODE]"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].Columns[ZIPCODE]"
+                      name="ZIPCODE"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].ExternalColumns[CUSTOMER_ID]"
+                      dataType="ui2"
+                      name="CUSTOMER_ID">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.UInt16</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].ExternalColumns[FULL_NAME]"
+                      dataType="wstr"
+                      length="255"
+                      name="FULL_NAME">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].ExternalColumns[BIRTH_DATE]"
+                      dataType="wstr"
+                      length="255"
+                      name="BIRTH_DATE">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].ExternalColumns[CITY]"
+                      dataType="wstr"
+                      length="255"
+                      name="CITY">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].ExternalColumns[STATE]"
+                      dataType="wstr"
+                      length="255"
+                      name="STATE">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente].ExternalColumns[ZIPCODE]"
+                      dataType="ui4"
+                      name="ZIPCODE">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.UInt32</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente]"
+                  isErrorOut="true"
+                  name="Salida de error de cliente">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Identifica el conjunto de filas asociado a la salida."
+                      name="RowsetID">cliente</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[CUSTOMER_ID]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].ExternalColumns[CUSTOMER_ID]"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[CUSTOMER_ID]"
+                      name="CUSTOMER_ID" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[FULL_NAME]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].ExternalColumns[FULL_NAME]"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[FULL_NAME]"
+                      name="FULL_NAME" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[BIRTH_DATE]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].ExternalColumns[BIRTH_DATE]"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[BIRTH_DATE]"
+                      name="BIRTH_DATE" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[CITY]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].ExternalColumns[CITY]"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[CITY]"
+                      name="CITY" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[STATE]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].ExternalColumns[STATE]"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[STATE]"
+                      name="STATE" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[ZIPCODE]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].ExternalColumns[ZIPCODE]"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[ZIPCODE]"
+                      name="ZIPCODE" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].ExternalColumns[CUSTOMER_ID]"
+                      dataType="nText"
+                      name="CUSTOMER_ID" />
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].ExternalColumns[FULL_NAME]"
+                      dataType="nText"
+                      name="FULL_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].ExternalColumns[BIRTH_DATE]"
+                      dataType="nText"
+                      name="BIRTH_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].ExternalColumns[CITY]"
+                      dataType="nText"
+                      name="CITY" />
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].ExternalColumns[STATE]"
+                      dataType="nText"
+                      name="STATE" />
+                    <externalMetadataColumn
+                      refId="Package\DF_CUSTOMER_R\Origen XML.Outputs[Salida de error de cliente].ExternalColumns[ZIPCODE]"
+                      dataType="nText"
+                      name="ZIPCODE" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DF_CUSTOMER_R.Paths[cliente]"
+              endId="Package\DF_CUSTOMER_R\Columna derivada.Inputs[Entrada de columna derivada]"
+              name="cliente"
+              startId="Package\DF_CUSTOMER_R\Origen XML.Outputs[cliente]" />
+            <path
+              refId="Package\DF_CUSTOMER_R.Paths[Salida de columna derivada]"
+              endId="Package\DF_CUSTOMER_R\Conversión de datos.Inputs[Entrada de conversión de datos]"
+              name="Salida de columna derivada"
+              startId="Package\DF_CUSTOMER_R\Columna derivada.Outputs[Salida de columna derivada]" />
+            <path
+              refId="Package\DF_CUSTOMER_R.Paths[Salida de conversión de datos]"
+              endId="Package\DF_CUSTOMER_R\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de conversión de datos"
+              startId="Package\DF_CUSTOMER_R\Conversión de datos.Outputs[Salida de conversión de datos]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DF_CUSTOMER_W"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{2EF1E66F-3D15-4AE5-8171-0F2D66E93C51}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DF_CUSTOMER_W"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tarea Ejecutar SQL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{82316FD1-DB18-4280-86BF-74C075685F55}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tarea Ejecutar SQL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A0ECB8DA-0A0E-4DE8-8D63-02D93690A620}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_CUSTOMERS" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{6198EB6D-D2D8-4784-9EA0-B2D6ADA2347F}"
+      DTS:From="Package\Tarea Ejecutar SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\DF_CUSTOMER_R" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{50F5EA1F-8A2C-429F-963E-B23A416B768C}"
+      DTS:From="Package\Tarea Ejecutar SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
+      DTS:To="Package\DF_CUSTOMER_W" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="169.6,41.6"
+          Id="Package\Tarea Ejecutar SQL"
+          TopLeft="153.571428898342,54.2941175994679" />
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\DF_CUSTOMER_R"
+          TopLeft="60.7142858435304,152.176470454847" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="211.438095565008,95.8941175994679">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-69.1238097214781,56.2823528553787"
+              Start="0,0"
+              End="-69.1238097214781,48.7823528553787">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.8285431207798" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.8285431207798"
+                    Point2="0,22.8285431207798"
+                    Point3="-4,22.8285431207798" />
+                  <mssgle:LineSegment
+                    End="-65.1238097214781,22.8285431207798" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-65.1238097214781,22.8285431207798"
+                    Point2="-69.1238097214781,22.8285431207798"
+                    Point3="-69.1238097214781,26.8285431207798" />
+                  <mssgle:LineSegment
+                    End="-69.1238097214781,48.7823528553787" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="166.4,41.6"
+          Id="Package\DF_CUSTOMER_W"
+          TopLeft="278.357143437984,155.382352809799" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="265.304762231675,95.8941175994679">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="96.2523812063091,59.4882352103308"
+              Start="0,0"
+              End="96.2523812063091,51.9882352103308">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.1288729731622" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.1288729731622"
+                    Point2="0,24.1288729731622"
+                    Point3="4,24.1288729731622" />
+                  <mssgle:LineSegment
+                    End="92.2523812063091,24.1288729731622" />
+                  <mssgle:CubicBezierSegment
+                    Point1="92.2523812063091,24.1288729731622"
+                    Point2="96.2523812063091,24.1288729731622"
+                    Point3="96.2523812063091,28.1288729731622" />
+                  <mssgle:LineSegment
+                    End="96.2523812063091,51.9882352103308" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DF_CUSTOMER_R">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="132.8,41.6"
+          Id="Package\DF_CUSTOMER_R\Origen XML"
+          TopLeft="259.999996125698,79.9999988079071" />
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\DF_CUSTOMER_R\Columna derivada"
+          TopLeft="250.999996259809,174.999997392297" />
+        <NodeLayout
+          Size="174.4,41.6"
+          Id="Package\DF_CUSTOMER_R\Conversión de datos"
+          TopLeft="241.999996393919,270.999995961785" />
+        <EdgeLayout
+          Id="Package\DF_CUSTOMER_R.Paths[cliente]"
+          TopLeft="329.499996192753,121.599998807907">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.3999985843897"
+              Start="0,0"
+              End="0,45.8999985843897">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.8999985843897" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF_CUSTOMER_R.Paths[Salida de columna derivada]"
+          TopLeft="330.899996326864,216.599997392297">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54.3999985694886"
+              Start="0,0"
+              End="0,46.8999985694886">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.8999985694886" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="168,41.6"
+          Id="Package\DF_CUSTOMER_R\Destino de OLE DB"
+          TopLeft="244.444440801938,361.111105730136" />
+        <EdgeLayout
+          Id="Package\DF_CUSTOMER_R.Paths[Salida de conversión de datos]"
+          TopLeft="328.822218597929,312.599995961785">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48.5111097683508"
+              Start="0,0"
+              End="0,41.0111097683508">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.0111097683508" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DF_CUSTOMER_R\Destino de OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
