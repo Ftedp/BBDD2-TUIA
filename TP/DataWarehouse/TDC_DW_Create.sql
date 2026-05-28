@@ -72,7 +72,6 @@ GO
 -- DIM_PRESENTACION
 CREATE TABLE DIM_PRESENTACION (
     id_presentacion INT             NOT NULL    IDENTITY(1,1),
-    descripcion     VARCHAR(100)    NOT NULL,
     volumen         INT   NULL,       -- volumen cm3
 	medida			VARCHAR(20)		NULL,	-- cm3
     tipo_envase     VARCHAR(50)     NULL,
