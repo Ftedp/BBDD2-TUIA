@@ -73,7 +73,8 @@ GO
 CREATE TABLE DIM_PRESENTACION (
     id_presentacion INT             NOT NULL    IDENTITY(1,1),
     descripcion     VARCHAR(100)    NOT NULL,
-    volumen         DECIMAL(10,3)   NULL,       -- volumen en litros, no es dinero
+    volumen         INT   NULL,       -- volumen cm3
+	medida			VARCHAR(20)		NULL,	-- cm3
     tipo_envase     VARCHAR(50)     NULL,
     CONSTRAINT PK_DIM_PRESENTACION PRIMARY KEY (id_presentacion)
 );
