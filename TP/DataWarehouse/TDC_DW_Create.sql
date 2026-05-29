@@ -32,7 +32,7 @@ CREATE TABLE DIM_FECHA (
 GO
 
 -- DIM_CLIENTE
--- La geografía del cliente está desnormalizada aquí adrede.
+-- La geografía del cliente está desnormalizada.
 -- DIM_GEOGRAFIA es una dimensión separada usada solo para el punto de venta.
 CREATE TABLE DIM_CLIENTE (
     id_cliente          INT             NOT NULL    IDENTITY(1,1),
@@ -98,6 +98,7 @@ GO
 CREATE TABLE DIM_EMPLEADO (
     id_empleado         INT             NOT NULL    IDENTITY(1,1),
     cod_sist_origen     VARCHAR(50)     NOT NULL,
+	id_empleado_origen VARCHAR(50) NOT NULL,
     nombre_empleado     VARCHAR(200)    NOT NULL,
     genero              VARCHAR(20)     NULL,
     categoria           VARCHAR(100)    NULL,
@@ -137,7 +138,7 @@ CREATE TABLE FCT_VENTAS (
     cod_sist_origen     VARCHAR(50)     NOT NULL,
     factura             VARCHAR(50)     NOT NULL,
     cantidad            INT             NOT NULL,
-    volumen_total       DECIMAL(12,3)   NULL,       -- volumen en litros, no es dinero
+    volumen_total       INT			    NULL,       -- volume cm3
     precio_unitario_usd MONEY           NULL,
     precio_bruto_usd    MONEY           NULL,
     descuento           MONEY           NULL,
