@@ -192,3 +192,9 @@ WHERE LEN(ZIPCODE) = 4;
 --##################################
 --Exploracion datos Tabla CUSTOMERS
 --##################################
+
+select * from STG_BILLING
+
+select * from STG_HISTORY_SALES
+select min(date), max(date) from STG_BILLING
+select min(date), max(date) from STG_HISTORY_SALES
