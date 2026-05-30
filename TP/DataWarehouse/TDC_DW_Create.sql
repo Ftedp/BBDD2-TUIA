@@ -49,18 +49,6 @@ CREATE TABLE DIM_CLIENTE (
 );
 GO
 
--- DIM_GEOGRAFIA
--- Usada exclusivamente desde FCT_VENTAS (rol: punto de venta).
-CREATE TABLE DIM_GEOGRAFIA (
-    id_geografia    INT             NOT NULL    IDENTITY(1,1),
-    region          VARCHAR(100)    NOT NULL,
-    estado          VARCHAR(100)    NOT NULL,
-    ciudad          VARCHAR(100)    NOT NULL,
-    zipcode         VARCHAR(20)     NOT NULL,
-    CONSTRAINT PK_DIM_GEOGRAFIA PRIMARY KEY (id_geografia)
-);
-GO
-
 -- DIM_RUBRO
 CREATE TABLE DIM_RUBRO (
     id_rubro        INT             NOT NULL    IDENTITY(1,1),
@@ -75,6 +63,7 @@ CREATE TABLE DIM_PRESENTACION (
     volumen         INT   NULL,       -- volumen cm3
 	medida			VARCHAR(20)		NULL,	-- cm3
     tipo_envase     VARCHAR(50)     NULL,
+	presentacion_original VARCHAR(100) NULL,
     CONSTRAINT PK_DIM_PRESENTACION PRIMARY KEY (id_presentacion)
 );
 GO
@@ -134,7 +123,7 @@ CREATE TABLE FCT_VENTAS (
     id_cliente          INT             NOT NULL,
     id_producto         INT             NOT NULL,
     id_empleado         INT             NOT NULL,
-    id_geo_venta        INT             NOT NULL,
+    region_venta        VARCHAR(50)	    NULL,
     cod_sist_origen     VARCHAR(50)     NOT NULL,
     factura             VARCHAR(50)     NOT NULL,
     cantidad            INT             NOT NULL,
@@ -152,7 +141,6 @@ CREATE TABLE FCT_VENTAS (
     CONSTRAINT FK_VENTAS_CLIENTE  FOREIGN KEY (id_cliente)   REFERENCES DIM_CLIENTE(id_cliente),
     CONSTRAINT FK_VENTAS_PRODUCTO FOREIGN KEY (id_producto)  REFERENCES DIM_PRODUCTO(id_producto),
     CONSTRAINT FK_VENTAS_EMPLEADO FOREIGN KEY (id_empleado)  REFERENCES DIM_EMPLEADO(id_empleado),
-    CONSTRAINT FK_VENTAS_GEO      FOREIGN KEY (id_geo_venta) REFERENCES DIM_GEOGRAFIA(id_geografia)
 );
 GO
 
