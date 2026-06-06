@@ -18,6 +18,12 @@ BEGIN
     DELETE FROM DIM_CLIENTE;
     DBCC CHECKIDENT ('DIM_CLIENTE', RESEED, 0);
 
+    -- Registro desconocido
+    SET IDENTITY_INSERT DIM_CLIENTE ON;
+    INSERT INTO DIM_CLIENTE (id_cliente, cod_sist_origen, id_cliente_origen, nombre_cliente, fecha_nacimiento, tipo_cliente, zipcode, ciudad, estado, region)
+    VALUES (-1, 'N/A', '-1', 'Desconocido', NULL, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
+    SET IDENTITY_INSERT DIM_CLIENTE OFF;
+
     INSERT INTO DIM_CLIENTE (cod_sist_origen, id_cliente_origen, nombre_cliente, fecha_nacimiento, tipo_cliente, zipcode, ciudad, estado, region)
     SELECT
         'XML'                       AS cod_sist_origen,
