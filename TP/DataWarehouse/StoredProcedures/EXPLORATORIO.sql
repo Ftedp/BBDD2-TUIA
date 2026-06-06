@@ -190,7 +190,7 @@ SET ZIPCODE = '0' + ZIPCODE
 WHERE LEN(ZIPCODE) = 4;
 
 --##################################
---Exploracion datos Tabla CUSTOMERS
+--Exploracion datos Tabla fecha
 --##################################
 
 select * from STG_BILLING
@@ -198,3 +198,102 @@ select * from STG_BILLING
 select * from STG_HISTORY_SALES
 select min(date), max(date) from STG_BILLING
 select min(date), max(date) from STG_HISTORY_SALES
+
+select * from STG_HOLIDAYS
+
+--##################################
+--Exploracion datos Tabla billing
+--##################################
+
+SELECT * FROM STG_TDC.dbo.STG_billing;
+
+SELECT 
+    SUM(CASE WHEN BILLING_ID IS NULL THEN 1 ELSE 0 END) AS nulos_billing_id,
+    SUM(CASE WHEN REGION IS NULL THEN 1 ELSE 0 END) AS nulos_region,
+    SUM(CASE WHEN BRANCH_ID IS NULL THEN 1 ELSE 0 END) AS nulos_branch_id,
+    SUM(CASE WHEN DATE IS NULL THEN 1 ELSE 0 END) AS nulos_date,
+    SUM(CASE WHEN CUSTOMER_ID IS NULL THEN 1 ELSE 0 END) AS nulos_customer_id,
+    SUM(CASE WHEN EMPLOYEE_ID IS NULL THEN 1 ELSE 0 END) AS nulos_employee_id
+FROM STG_TDC.dbo.STG_BILLING;
+
+
+SELECT DISTINCT REGION FROM STG_TDC.dbo.STG_BILLING;
+SELECT DISTINCT REGION FROM STG_TDC.dbo.STG_HISTORY_SALES;
+SELECT COUNT(*) FROM STG_TDC.dbo.STG_HISTORY_SALES WHERE REGION IS NULL;
+
+UPDATE STG_TDC.dbo.STG_BILLING SET REGION = 'Central' WHERE REGION = 'North';
+
+SELECT DISTINCT REGION FROM STG_TDC.dbo.STG_BILLING;
+
+SELECT COUNT(*) FROM STG_TDC.dbo.STG_BILLING WHERE ISDATE(DATE) = 0;
+
+--##################################
+--Exploracion datos Tabla billing_detail
+--##################################
+
+SELECT * FROM STG_TDC.dbo.STG_BILLING_DETAIL;
+
+SELECT 
+    SUM(CASE WHEN BILLING_ID IS NULL THEN 1 ELSE 0 END) AS nulos_billing_id,
+    SUM(CASE WHEN PRODUCT_ID IS NULL THEN 1 ELSE 0 END) AS nulos_product_id,
+    SUM(CASE WHEN QUANTITY IS NULL THEN 1 ELSE 0 END) AS nulos_quantity
+FROM STG_TDC.dbo.STG_BILLING_DETAIL;
+
+--Detectamos que los product_id no coinciden en productos/billing_detail
+SELECT DISTINCT bd.PRODUCT_ID
+FROM STG_TDC.dbo.STG_BILLING_DETAIL bd
+LEFT JOIN STG_TDC.dbo.STG_PRODUCTS p ON bd.PRODUCT_ID = p.PRODUCT_ID
+WHERE p.PRODUCT_ID IS NULL;
+
+SELECT DISTINCT LEN(PRODUCT_ID), MIN(PRODUCT_ID), MAX(PRODUCT_ID)
+FROM STG_TDC.dbo.STG_BILLING_DETAIL
+GROUP BY LEN(PRODUCT_ID);
+
+UPDATE STG_TDC.dbo.STG_BILLING_DETAIL 
+SET PRODUCT_ID = '0' + PRODUCT_ID 
+WHERE LEN(PRODUCT_ID) = 1;
+
+--##################################
+--Exploracion datos Tabla prices
+--##################################
+select * from STG_PRICES
+--Corregimos id que les falta cero al inicio
+UPDATE STG_TDC.dbo.STG_PRICES 
+SET PRODUCT_ID = '0' + PRODUCT_ID 
+WHERE LEN(PRODUCT_ID) = 1;
+
+--redondeamos valores a dos decimales
+UPDATE STG_TDC.dbo.STG_PRICES 
+SET PRICE = CAST(ROUND(CAST(PRICE AS FLOAT), 2) AS VARCHAR(50));
+
+SELECT * FROM STG_PRICES
+
+--##################################
+--Exploracion datos Tabla discounts
+--##################################
+
+SELECT * FROM STG_TDC.dbo.STG_DISCOUNTS;
+
+--##################################
+--Exploracion datos Tabla history_sales
+--##################################
+
+select * from stg_history_sales
+
+SELECT 
+    SUM(CASE WHEN ID IS NULL THEN 1 ELSE 0 END) AS nulos_id,
+    SUM(CASE WHEN BILLING_ID IS NULL THEN 1 ELSE 0 END) AS nulos_billing_id,
+    SUM(CASE WHEN DATE IS NULL THEN 1 ELSE 0 END) AS nulos_date,
+    SUM(CASE WHEN CUSTOMER_ID IS NULL THEN 1 ELSE 0 END) AS nulos_customer_id,
+    SUM(CASE WHEN EMPLOYEE_ID IS NULL THEN 1 ELSE 0 END) AS nulos_employee_id,
+    SUM(CASE WHEN PRODUCT_ID IS NULL THEN 1 ELSE 0 END) AS nulos_product_id,
+    SUM(CASE WHEN QUANTITY IS NULL THEN 1 ELSE 0 END) AS nulos_quantity,
+    SUM(CASE WHEN REGION IS NULL THEN 1 ELSE 0 END) AS nulos_region
+FROM STG_TDC.dbo.STG_HISTORY_SALES;
+
+SELECT * FROM STG_TDC.dbo.STG_HISTORY_SALES
+WHERE DATE IS NULL OR CUSTOMER_ID IS NULL OR EMPLOYEE_ID IS NULL OR REGION IS NULL;
+
+SELECT DISTINCT LEN(PRODUCT_ID), MIN(PRODUCT_ID), MAX(PRODUCT_ID)
+FROM STG_TDC.dbo.STG_HISTORY_SALES
+GROUP BY LEN(PRODUCT_ID);
