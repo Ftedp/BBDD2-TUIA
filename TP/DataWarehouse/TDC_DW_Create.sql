@@ -99,18 +99,6 @@ CREATE TABLE DIM_EMPLEADO (
 );
 GO
 
--- DIM_COTIZACION
-CREATE TABLE DIM_COTIZACION (
-    id_cotizacion       INT             NOT NULL    IDENTITY(1,1),
-    fecha_nro_desde     INT             NOT NULL,
-    fecha_nro_hasta     INT             NOT NULL,
-    moneda              VARCHAR(10)     NOT NULL,
-    cotizacion          MONEY           NOT NULL,   -- es un valor monetario
-    CONSTRAINT PK_DIM_COTIZACION PRIMARY KEY (id_cotizacion),
-    CONSTRAINT FK_COTIZACION_FECHA_DESDE FOREIGN KEY (fecha_nro_desde) REFERENCES DIM_FECHA(fecha_nro),
-    CONSTRAINT FK_COTIZACION_FECHA_HASTA FOREIGN KEY (fecha_nro_hasta) REFERENCES DIM_FECHA(fecha_nro)
-);
-GO
 
 -- ============================================================
 -- TABLAS DE HECHOS
