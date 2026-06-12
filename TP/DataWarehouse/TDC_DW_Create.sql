@@ -2,9 +2,12 @@
 -- DATA WAREHOUSE - THE DRINKING COMPANY (TDC)
 -- Script de creación de tablas en SQL Server
 -- ============================================================
-DROP DATABASE IF EXISTS TDC_DW;
+IF EXISTS (SELECT 1 FROM sys.databases WHERE name = 'TDC_DW')
+BEGIN
+    ALTER DATABASE TDC_DW SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE TDC_DW;
+END
 GO
-
 CREATE DATABASE TDC_DW;
 GO
 
@@ -18,6 +21,7 @@ GO
 -- DIM_FECHA
 CREATE TABLE DIM_FECHA (
     fecha_nro       INT             NOT NULL,
+	fecha_completa  DATE            NULL,
     dia             INT             NOT NULL,
     dia_sem_nro     INT             NOT NULL,
     dia_sem_nomb    VARCHAR(20)     NOT NULL,
@@ -122,7 +126,7 @@ CREATE TABLE FCT_VENTAS (
     monto_total_usd     MONEY           NULL,
     edad_cliente        INT             NULL,
     edad_empleado       INT             NULL,
-    grupo_etario        INT             NULL,
+    grupo_etario        VARCHAR(10)     NULL,
     antiguedad_empleado INT             NULL,
     CONSTRAINT PK_FCT_VENTAS PRIMARY KEY (id_venta),
     CONSTRAINT FK_VENTAS_FECHA    FOREIGN KEY (fecha_nro)    REFERENCES DIM_FECHA(fecha_nro),
@@ -136,10 +140,10 @@ GO
 -- Granularidad: una fila por producto por fecha (periodic snapshot).
 -- Sin cod_sist_origen: el stock proviene de una única fuente.
 CREATE TABLE FCT_STOCK (
-    id_stock        INT             NOT NULL    IDENTITY(1,1),
-    fecha_nro       INT             NOT NULL,
-    id_producto     INT             NOT NULL,
-    cantidad        INT             NOT NULL,
+    id_stock		  INT             NOT NULL    IDENTITY(1,1),
+    fecha_nro		  INT             NOT NULL,
+    id_producto		  INT             NOT NULL,
+    unidades_entrada  INT			  NOT NULL,
     CONSTRAINT PK_FCT_STOCK PRIMARY KEY (id_stock),
     CONSTRAINT FK_STOCK_FECHA    FOREIGN KEY (fecha_nro)   REFERENCES DIM_FECHA(fecha_nro),
     CONSTRAINT FK_STOCK_PRODUCTO FOREIGN KEY (id_producto) REFERENCES DIM_PRODUCTO(id_producto),
@@ -156,17 +160,18 @@ BEGIN
     DELETE FROM DIM_FECHA;
 
     -- Registro desconocido
-    INSERT INTO DIM_FECHA (fecha_nro, dia, dia_sem_nro, dia_sem_nomb, mes, mes_nombre, trimestre, semestre, anio, feriado)
-    VALUES (-1, -1, -1, 'Desconocido', -1, 'Desconocido', -1, -1, -1, 0);
+    INSERT INTO DIM_FECHA (fecha_nro, fecha_completa, dia, dia_sem_nro, dia_sem_nomb, mes, mes_nombre, trimestre, semestre, anio, feriado)
+    VALUES (-1, NULL, -1, -1, 'Desconocido', -1, 'Desconocido', -1, -1, -1, 0);
 
-    DECLARE @fecha DATE = '2006-01-01';
+    DECLARE @fecha DATE = '2000-01-01';
     DECLARE @fecha_fin DATE = '2009-12-31';
 
     WHILE @fecha <= @fecha_fin
     BEGIN
-        INSERT INTO DIM_FECHA (fecha_nro, dia, dia_sem_nro, dia_sem_nomb, mes, mes_nombre, trimestre, semestre, anio, feriado)
+        INSERT INTO DIM_FECHA (fecha_nro, fecha_completa, dia, dia_sem_nro, dia_sem_nomb, mes, mes_nombre, trimestre, semestre, anio, feriado)
         VALUES (
             CAST(FORMAT(@fecha, 'yyyyMMdd') AS INT),
+            @fecha,
             DAY(@fecha),
             DATEPART(WEEKDAY, @fecha),
             DATENAME(WEEKDAY, @fecha),
@@ -450,14 +455,14 @@ BEGIN
         CAST(h.QUANTITY AS INT) * pr.precio_unitario - CAST(h.QUANTITY AS INT) * pr.precio_unitario * ISNULL(d.porcentaje_descuento, 0) / 100,
         DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(h.DATE AS DATE)),
         DATEDIFF(YEAR, de.fecha_nacimiento, CAST(h.DATE AS DATE)),
-        CASE
-            WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(h.DATE AS DATE)) BETWEEN 0  AND 12 THEN 1
-            WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(h.DATE AS DATE)) BETWEEN 13 AND 19 THEN 2
-            WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(h.DATE AS DATE)) BETWEEN 20 AND 39 THEN 3
-            WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(h.DATE AS DATE)) BETWEEN 40 AND 50 THEN 4
-            WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(h.DATE AS DATE)) BETWEEN 51 AND 65 THEN 5
-            ELSE 6
-        END,
+		CASE
+			WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(h.DATE AS DATE)) BETWEEN 0  AND 12 THEN '0-12'
+			WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(h.DATE AS DATE)) BETWEEN 13 AND 19 THEN '13-19'
+			WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(h.DATE AS DATE)) BETWEEN 20 AND 39 THEN '20-39'
+			WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(h.DATE AS DATE)) BETWEEN 40 AND 50 THEN '40-50'
+			WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(h.DATE AS DATE)) BETWEEN 51 AND 65 THEN '51-65'
+			ELSE '66+'
+		END,
         DATEDIFF(YEAR, de.fecha_ingreso, CAST(h.DATE AS DATE))
     FROM STG_TDC.dbo.STG_HISTORY_SALES h
     JOIN #precios pr ON pr.ID = h.ID
@@ -547,14 +552,14 @@ BEGIN
         pb.cantidad * pb.precio_unitario - pb.cantidad * pb.precio_unitario * ISNULL(db_.porcentaje_descuento, 0) / 100,
         DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(b.DATE AS DATE)),
         DATEDIFF(YEAR, de.fecha_nacimiento, CAST(b.DATE AS DATE)),
-        CASE
-            WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(b.DATE AS DATE)) BETWEEN 0  AND 12 THEN 1
-            WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(b.DATE AS DATE)) BETWEEN 13 AND 19 THEN 2
-            WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(b.DATE AS DATE)) BETWEEN 20 AND 39 THEN 3
-            WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(b.DATE AS DATE)) BETWEEN 40 AND 50 THEN 4
-            WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(b.DATE AS DATE)) BETWEEN 51 AND 65 THEN 5
-            ELSE 6
-        END,
+		CASE
+			WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(b.DATE AS DATE)) BETWEEN 0  AND 12 THEN '0-12'
+			WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(b.DATE AS DATE)) BETWEEN 13 AND 19 THEN '13-19'
+			WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(b.DATE AS DATE)) BETWEEN 20 AND 39 THEN '20-39'
+			WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(b.DATE AS DATE)) BETWEEN 40 AND 50 THEN '40-50'
+			WHEN DATEDIFF(YEAR, dc.fecha_nacimiento, CAST(b.DATE AS DATE)) BETWEEN 51 AND 65 THEN '51-65'
+			ELSE '66+'
+		END,
         DATEDIFF(YEAR, de.fecha_ingreso, CAST(b.DATE AS DATE))
     FROM STG_TDC.dbo.STG_BILLING_DETAIL bd
     JOIN #precios_billing pb ON pb.BILLING_ID = bd.BILLING_ID AND pb.PRODUCT_ID = bd.PRODUCT_ID
@@ -564,6 +569,45 @@ BEGIN
     LEFT JOIN TDC_DW.dbo.DIM_EMPLEADO de ON de.id_empleado_origen = b.EMPLOYEE_ID AND de.id_empleado <> -1
     JOIN TDC_DW.dbo.DIM_PRODUCTO dp ON dp.id_producto_origen = bd.PRODUCT_ID
     JOIN TDC_DW.dbo.DIM_PRESENTACION dp2 ON dp2.id_presentacion = dp.id_presentacion;
+
+END;
+GO
+
+
+CREATE OR ALTER PROCEDURE SP_LOAD_FCT_STOCK
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- ============================================================
+    -- PASO 1: LIMPIEZA STAGING - normalizar formato de fecha
+    -- ============================================================
+    UPDATE STG_TDC.dbo.STG_STOCK
+    SET DATE = REPLACE(REPLACE(DATE, 'a.m.', 'AM'), 'p.m.', 'PM')
+    WHERE DATE LIKE '%a.m.%' OR DATE LIKE '%p.m.%';
+
+    -- ============================================================
+    -- PASO 2: VACIAR FCT_STOCK
+    -- ============================================================
+    DELETE FROM TDC_DW.dbo.FCT_STOCK;
+    DBCC CHECKIDENT ('TDC_DW.dbo.FCT_STOCK', RESEED, 0);
+
+    -- ============================================================
+    -- PASO 3: INSERTAR MOVIMIENTOS AGRUPADOS POR DIA Y PRODUCTO
+    -- ============================================================
+    INSERT INTO TDC_DW.dbo.FCT_STOCK (fecha_nro, id_producto, unidades_entrada)
+    SELECT
+        ISNULL(df.fecha_nro, -1)                                    AS fecha_nro,
+        dp.id_producto,
+        SUM(CAST(s.VARIATION AS INT))                               AS unidades_entrada
+    FROM STG_TDC.dbo.STG_STOCK s
+    INNER JOIN TDC_DW.dbo.DIM_PRODUCTO dp 
+        ON s.PRODUCT_ID = dp.id_producto_origen
+    LEFT JOIN TDC_DW.dbo.DIM_FECHA df 
+        ON df.fecha_nro = CAST(FORMAT(CONVERT(DATE, LEFT(s.DATE, 10), 101), 'yyyyMMdd') AS INT)
+    GROUP BY
+        ISNULL(df.fecha_nro, -1),
+        dp.id_producto;
 
 END;
 GO
